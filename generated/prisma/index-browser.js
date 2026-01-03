@@ -145,6 +145,13 @@ exports.Prisma.FileScalarFieldEnum = {
   folderId: 'folderId'
 };
 
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  sid: 'sid',
+  data: 'data',
+  expiresAt: 'expiresAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -164,7 +171,8 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   User: 'User',
   Folder: 'Folder',
-  File: 'File'
+  File: 'File',
+  Session: 'Session'
 };
 
 /**
