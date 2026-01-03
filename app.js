@@ -29,6 +29,15 @@ app.use(session({
   )
 }));
 
+app.use(express.urlencoded({extended: true}));
+const assetsPath = path.join(__dirname, 'public');
+app.use(express.static(assetsPath))
+
+require('./config/passport.js')(passport);
+app.use(passport.session());
+
+// Routes
+
 
 // Error Handling
 app.use((err, req, res, next) => {
