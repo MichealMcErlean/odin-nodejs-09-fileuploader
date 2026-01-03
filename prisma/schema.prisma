@@ -13,7 +13,7 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
+model Account {
   id           Int      @id @default(autoincrement())
   firstname    String
   lastname     String
@@ -24,17 +24,17 @@ model User {
 }
 
 model Folder {
-  id       Int      @id @default(autoincrement())
-  name     String
-  userId   Int
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  parentId Int?
-  parent   Folder?  @relation("Subfolders", fields: [parentId], references: [id])
-  children Folder[] @relation("Subfolders")
-  isHome   Boolean  @default(false)
-  files    File[]
+  id        Int      @id @default(autoincrement())
+  name      String
+  accountId Int
+  account   Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  parentId  Int?
+  parent    Folder?  @relation("Subfolders", fields: [parentId], references: [id])
+  children  Folder[] @relation("Subfolders")
+  isHome    Boolean  @default(false)
+  files     File[]
 
-  @@unique([userId, isHome]) // ensure only one Home per User
+  @@unique([accountId, isHome]) // ensure only one Home per User
 }
 
 model File {
@@ -42,8 +42,8 @@ model File {
   name       String
   size       String
   uploaddate DateTime @default(now())
-  userId     Int
-  user       User     @relation(fields: [userId], references: [id])
+  accountId  Int
+  account    Account  @relation(fields: [accountId], references: [id])
   folderId   Int
   folder     Folder   @relation(fields: [folderId], references: [id])
 }
