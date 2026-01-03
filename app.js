@@ -36,6 +36,12 @@ app.use(express.static(assetsPath))
 require('./config/passport.js')(passport);
 app.use(passport.session());
 
+// Make current session user available via locals to all views and routes
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+})
+
 // Routes
 
 
@@ -57,3 +63,11 @@ app.use((err, req, res, next) => {
         ? {} : err
   });
 });
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, (error) => {
+  if (error) {
+    throw error;
+  }
+  console.log(`File Uploader app listening on port ${PORT}.`);
+})
