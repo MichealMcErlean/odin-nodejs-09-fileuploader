@@ -120,7 +120,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.UserScalarFieldEnum = {
+exports.Prisma.AccountScalarFieldEnum = {
   id: 'id',
   firstname: 'firstname',
   lastname: 'lastname',
@@ -131,7 +131,7 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.FolderScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  userId: 'userId',
+  accountId: 'accountId',
   parentId: 'parentId',
   isHome: 'isHome'
 };
@@ -141,7 +141,7 @@ exports.Prisma.FileScalarFieldEnum = {
   name: 'name',
   size: 'size',
   uploaddate: 'uploaddate',
-  userId: 'userId',
+  accountId: 'accountId',
   folderId: 'folderId'
 };
 
@@ -169,7 +169,7 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User',
+  Account: 'Account',
   Folder: 'Folder',
   File: 'File',
   Session: 'Session'
