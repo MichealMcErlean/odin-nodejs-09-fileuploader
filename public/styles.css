@@ -1,0 +1,92 @@
+@font-face {
+  font-family: 'robotoregular';
+  src: url('/fonts/roboto-variablefont_wdthwght-webfont.woff2') format('woff2'),
+    url('/fonts/roboto-variablefont_wdthwght-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'lexendregular';
+  src: url('/fonts/lexend-variablefont_wght-webfont.woff2') format('woff2'),
+    url('/fonts/lexend-variablefont_wght-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'robotoregular';
+}
+
+:root {
+  --color-bg-frame: #f0f0ff;
+  --color-bg-footer: #0000ff;
+  --color-text-frame: black;
+  --color-text-footer: white;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg-frame);
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr min-content;
+  justify-items: center;
+}
+
+header {
+  color: var(--color-text-frame);
+  background-color: var(--color-bg-frame);
+  padding: 10px;
+  text-align: center;
+}
+
+footer {
+  color: var(--color-text-footer);
+  background-color: var(--color-bg-footer);
+  padding: 10px;
+  min-width: 100%;
+  text-align: center;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.common-form {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-auto-rows: min-content;
+  gap: 10px;
+  align-items: center;
+  max-width: 500px;
+  margin: 10px auto 0 auto;
+  padding: 10px;
+}
+
+.common-form label {
+  text-align: right;
+  padding: 3px;
+}
+
+.common-form button {
+  grid-column: 1 / span 2;
+  justify-self: center;
+}
+
+.common-form span.error {
+  grid-column: 1 / span 2;
+  text-align: right;
+  color: red;
+  font-weight: bold;
+}
+
+.common-form .formp {
+  grid-column: 1 / span 2;
+}
