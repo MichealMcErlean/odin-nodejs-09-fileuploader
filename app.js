@@ -8,6 +8,8 @@ const {PrismaSessionStore} = require('@quixo3/prisma-session-store');
 const path = require('path');
 const app = express();
 const {ensureAuthentication} = require('./helpers/auth.js');
+const rootRouter = require('./routes/rootRouter.js');
+const homeRouter = require('./routes/homeRouter.js');
 
 //middleware
 
@@ -38,12 +40,13 @@ app.use(passport.session());
 
 // Make current session user available via locals to all views and routes
 app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
+  res.locals.currentAccount = req.user;
   next();
 })
 
 // Routes
-
+app.use('/home', ensureAuthentication, homeRouter);
+app.use("/", rootRouter);
 
 // Error Handling
 app.use((err, req, res, next) => {

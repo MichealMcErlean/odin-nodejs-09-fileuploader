@@ -1,0 +1,18 @@
+<div class="folder-contents">
+  <% if (subfolders.length < 1 && currentFiles.length < 1) {%> 
+    <p class="no-contents">Nothing yet.</p>
+  <% } else { %>
+    <% subfolders.forEach(folder => { %>
+      <div class="folder-item">
+        <img src="/images/folder.svg" alt="folder">
+        <a href="/home/folders/<%= folder.id %>"><%= folder.name %></a>
+      </div>
+    <% }); %>
+    <% currentFiles.forEach(file => { %>
+      <div class="folder-item">
+        <img src="/images/markdown.svg" alt="markdown file">
+        <a href="/home/files/<%= file.id %>"><%= file.name %></a>
+      </div>
+    <% }) %>
+  <% } %>
+</div>

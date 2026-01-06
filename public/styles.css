@@ -19,9 +19,11 @@
 * {
   box-sizing: border-box;
   font-family: 'robotoregular';
+  
 }
 
 :root {
+  font-size: 10px;
   --color-bg-frame: #f0f0ff;
   --color-bg-footer: #0000ff;
   --color-text-frame: black;
@@ -32,10 +34,98 @@ body {
   margin: 0;
   background-color: var(--color-bg-frame);
   min-height: 100vh;
+  font-size: 1.6rem;
+}
+
+.auth-gate {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: min-content 1fr min-content;
   justify-items: center;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-areas:
+      'header header '
+      'nav article'
+      'footer footer';
+  grid-template-columns: clamp(150px, 20%, 300px) 1fr;
+  grid-template-rows: min-content 1fr min-content;
+}
+
+.app-shell header {
+  grid-area: header;
+  display: grid;
+  grid-template-columns: clamp(150px, 20%, 300px) 1fr min-content;
+  grid-template-rows: fit-content;
+  align-content: center;
+}
+
+.app-shell .breadcrumbs {
+  justify-self: left;
+  align-self: center;
+  font-size: 1.8rem;
+}
+
+.app-shell .account {
+  padding: 10px;
+}
+
+.app-shell .account * {
+  margin: 0;
+}
+
+.app-shell nav {
+  grid-area: nav;
+  padding: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app-shell nav h3 {
+  align-self:flex-start;
+  margin-bottom: 0px;
+}
+
+.app-shell nav button {
+  position: relative;
+  border: 5px solid var(--color-bg-footer);
+  background-color: var(--color-bg-frame);
+  color: var(--color-bg-footer);
+  font-weight: bold;
+  font-size: 2.4rem;
+  border-radius: 15px;
+  
+}
+
+.app-shell nav ul {
+  list-style: none;
+  min-width: clamp(130px, 90%, 280px);
+  padding-left: 1px;
+}
+
+.app-shell nav .nested-list {
+  padding-left: 10px;
+}
+
+.app-shell nav .folder-header img {
+  max-width: 15px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+}
+
+.app-shell article {
+  grid-area: article;
+  position: relative;
+}
+
+
+
+.app-shell footer {
+  grid-area: footer;
 }
 
 header {
@@ -57,6 +147,20 @@ article {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+nav .nested-list.collapsed {
+  display: none;
+}
+
+nav .toggle-icon {
+  cursor: pointer;
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+nav .toggle-icon.open {
+  transform: rotate(90deg);
 }
 
 .common-form {

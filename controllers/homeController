@@ -1,0 +1,41 @@
+const {prisma} = require('../db/prisma.js');
+const {
+  body,
+  query,
+  validationResult,
+  matchedData
+} = require('express-validator');
+const homeHelper = require('../helpers/home.js');
+
+exports.homePage = async (req, res) => {
+  // Home only: get current folder from accountId and isHome
+  const currentFolder = await prisma.folder.findFirst({
+    where: {
+      accountId: res.locals.currentAccount.id,
+      isHome: true,
+    },
+    select: {
+      id: true,
+      name: true,
+    }
+  });
+    
+  // console.log('currentFolder:', currentFolder);
+  // console.log('currentAccount:', res.locals.currentAccount);
+
+  const {folderPath, directoryTree, subfolders, currentFiles} = await homeHelper.commonSearches(currentFolder, res.locals.currentAccount);
+
+    // console.log('folderPath:', folderPath);
+    // console.log('directoryTree:', directoryTree);
+    // console.log('subfolders:', subfolders);
+    // console.log('currentFiles:', currentFiles);
+
+  res.render('home', {
+    title: 'Folder - Home',
+    folderPath,
+    directoryTree,
+    subfolders,
+    currentFiles,
+    currentFolder
+  })
+}

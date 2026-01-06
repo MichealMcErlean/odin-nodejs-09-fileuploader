@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="app-shell">
+  <%- include('./partials/home-header.ejs') %>
+  <%- include('./partials/home-nav.ejs') %>
+  <article>
+    <%- include('./partials/folderContents.ejs') %>
+  </article>
+  <%- include('./partials/footer.ejs') %>
+</body>
+</html>

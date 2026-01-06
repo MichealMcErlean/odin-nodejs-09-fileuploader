@@ -1,0 +1,13 @@
+<header>
+  <img src="/images/mdrive-logo.svg" alt="MDrive Logo">
+  <div class="breadcrumbs">
+    <% folderPath.reverse().forEach(folder => { %>
+      <span> / <a href="/home/folder/<%= folder.id %>"><%= folder.name %></a></span>
+    <% }); %>
+  </div>
+  <div class="account">
+    <h4><%= `${locals.currentAccount.firstname} ${locals.currentAccount.lastname}` %></h4>
+    <p><a href="/logout">Log out</a></p>
+  </div>
+
+</header>
