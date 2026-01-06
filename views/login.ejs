@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%=  title %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="auth-gate">
+  <%- include('./partials/root-header.ejs') %>
+  <article>
+    <h1>
+      <%= title %>
+    </h1>
+    <div class="errorBox">
+      <%- include('partials/errors.ejs') %>
+    </div>
+    <form action="/login" method="POST" name="loginform" id="loginform" class="common-form">
+      <label for="username">Email:</label>
+      <input type="email" name="username" id="username" required>
+  
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" required>
+  
+      <button type="submit">Log In</button>
+    </form>
+    <p>Or return to the <a href="/">sign-up page</a></p>
+  </article>
+  <%- include('./partials/footer.ejs') %>
+</body>
+</html>

@@ -8,10 +8,10 @@ module.exports = function(passport) {
     try {
       const account = await prisma.account.findUnique({where: {username}})
 
-      if (!user) {
+      if (!account) {
         return done(null, false, {message: 'No account with that ID.'});
       }
-      if (!(await bcrypt.compare(password, account.password))) {
+      if (!(await bcrypt.compare(password, account.passwordhash))) {
         return done(null, false, {message: 'Incorrect password.'})
       }
       return done(null, account);
@@ -26,8 +26,8 @@ module.exports = function(passport) {
 
   passport.deserializeUser(async (id, done) => {
     try {
-      const user = await prisma.account.findUnique({where: {id}});
-      return done(null, user);
+      const account = await prisma.account.findUnique({where: {id}});
+      return done(null, account);
     } catch(err) {
       return done(err);
     }
