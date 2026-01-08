@@ -10,6 +10,7 @@ const app = express();
 const {ensureAuthentication} = require('./helpers/auth.js');
 const rootRouter = require('./routes/rootRouter.js');
 const homeRouter = require('./routes/homeRouter.js');
+const flash = require('connect-flash');
 
 //middleware
 
@@ -37,6 +38,12 @@ app.use(express.static(assetsPath))
 
 require('./config/passport.js')(passport);
 app.use(passport.session());
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.error = req.flash('error');
+  res.locals.success = req.flash('success');
+  next();
+})
 
 // Make current session user available via locals to all views and routes
 app.use((req, res, next) => {

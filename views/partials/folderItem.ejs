@@ -1,7 +1,7 @@
 <li class="folder-node">
   <div class="folder-header">
     <span class="toggle-icon"><img src="/images/chevron-right.svg" alt="folder icon"></span>
-    <a href="/home/folders/<%= folder.id %>"><%= folder.name %></a>
+    <a href="/home/folder/<%= folder.id %>"><%= folder.name %></a>
   </div>
   <% if (folder.children.length > 0) {%>
     <ul class="nested-list collapsed">
