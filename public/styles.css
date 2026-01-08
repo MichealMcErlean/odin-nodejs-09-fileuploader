@@ -202,6 +202,7 @@ nav .toggle-icon.open {
   gap: 10px;
   align-self: start;
   margin: 3px;
+  width: 95%;
 }
 
 .folder-buttons button {
@@ -217,15 +218,51 @@ nav .toggle-icon.open {
   background-color: var(--color-bg-footer);
 }
 
+.folder-buttons .spreader {
+  flex-grow: 1;
+}
+
+.folder-contents {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  box-shadow: inset 5px 5px 10px black;
+}
+
+.folder-contents.tile-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+
+}
+
 .folder-contents .no-contents {
   font-size: 2.4rem;
   color: #aaaaaa;
+}
+
+.folder-item {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
 }
 
 .folder-item img {
   max-width: 20px;
   height: auto;
   aspect-ratio: 1 / 1;
+}
+
+.folder-item.tile {
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  box-shadow: 5px 5px 10px #888888;
 }
 
 dialog {

@@ -12,7 +12,12 @@
         if (!container) return;
 
         container.addEventListener('click', (e) => {
-          if (e.target.classList.contains('toggle-icon')) {
+          
+          const icon = e.target.closest('.toggle-icon');
+          console.log('Icon value:', icon)
+
+          // if (e.target.classList.contains('toggle-icon')) {
+          if (icon) {
             const parentLi = e.target.closest('.folder-node');
             const nestedList = parentLi.querySelector('.nested-list');
             if (nestedList) {
