@@ -33,8 +33,6 @@ model Folder {
   children  Folder[] @relation("Subfolders")
   isHome    Boolean  @default(false)
   files     File[]
-
-  @@unique([accountId, isHome]) // ensure only one Home per User
 }
 
 model File {

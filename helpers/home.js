@@ -17,7 +17,6 @@ const getFolderPath = async (currentFolder) => {
     )
     SELECT * FROM folder_path;
   `;
-  console.log('folderPath prior to export:', folderPath);
   return folderPath;
 }
 
@@ -57,9 +56,8 @@ const genDirectoryTree = async (currentUser) => {
 exports.commonSearches = async (currentFolder, currentUser) => {
   const folderPath = await getFolderPath(currentFolder);
 
-  console.log('Collector received folderPath:', folderPath);
-
   const directoryTree = await genDirectoryTree(currentUser);
+
   const subfolders = await prisma.folder.findMany({
     where: {
       parentId: currentFolder.id,
@@ -78,6 +76,6 @@ exports.commonSearches = async (currentFolder, currentUser) => {
       name: true,
     }
   });
-  console.log('Return object:', {folderPath, directoryTree, subfolders, currentFiles});
+  
   return {folderPath, directoryTree, subfolders, currentFiles};
 }

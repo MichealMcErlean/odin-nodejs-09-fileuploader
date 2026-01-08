@@ -147,6 +147,7 @@ article {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 nav .nested-list.collapsed {
@@ -193,4 +194,54 @@ nav .toggle-icon.open {
 
 .common-form .formp {
   grid-column: 1 / span 2;
+}
+
+.folder-buttons {
+  display: flex;
+  justify-items: start;
+  gap: 10px;
+  align-self: start;
+  margin: 3px;
+}
+
+.folder-buttons button {
+  border: 2px solid var(--color-bg-footer);
+  background-color: var(--color-bg-frame);
+  color: var(--color-bg-footer);
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.folder-buttons :active {
+  color: var(--color-bg-frame);
+  background-color: var(--color-bg-footer);
+}
+
+.folder-contents .no-contents {
+  font-size: 2.4rem;
+  color: #aaaaaa;
+}
+
+.folder-item img {
+  max-width: 20px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+}
+
+dialog {
+  border: 2px solid var(--color-bg-footer);
+  border-radius: 25px;
+  background-color: var(--color-bg-frame);
+}
+
+dialog button {
+  border: 2px solid var(--color-bg-footer);
+  background-color: var(--color-bg-frame);
+  color: var(--color-bg-footer);
+  border-radius: 10px;
+}
+
+.alert-danger {
+  color: red;
+  font-weight: bold;
 }

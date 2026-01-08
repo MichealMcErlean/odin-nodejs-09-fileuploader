@@ -1,3 +1,21 @@
+<div class="folder-buttons">
+  <button type="button" id="create-modal-open">Create Subfolder</button>
+  <button type="button" id="rename-modal-open">Rename Current Folder</button>
+  <form action="/home/folder/delete/<%= currentFolder.id %>" method="post" id="delete-form"
+      data-is-home="<%= currentFolder.isHome %>">
+    <button type="submit">Delete Current Folder</button>
+  </form>
+</div>
+<div class="folder-buttons">
+  <button type="button" id="upload-modal-open">Upload File</button>
+</div>
+
+<% if (error && error.length> 0) { %>
+  <div class="alert alert-danger">
+    <%= error %>
+  </div>
+<% } %>
+
 <div class="folder-contents">
   <% if (subfolders.length < 1 && currentFiles.length < 1) {%> 
     <p class="no-contents">Nothing yet.</p>
@@ -5,14 +23,41 @@
     <% subfolders.forEach(folder => { %>
       <div class="folder-item">
         <img src="/images/folder.svg" alt="folder">
-        <a href="/home/folders/<%= folder.id %>"><%= folder.name %></a>
+        <a href="/home/folder/<%= folder.id %>"><%= folder.name %></a>
       </div>
     <% }); %>
     <% currentFiles.forEach(file => { %>
       <div class="folder-item">
         <img src="/images/markdown.svg" alt="markdown file">
-        <a href="/home/files/<%= file.id %>"><%= file.name %></a>
+        <a href="/home/file/<%= file.id %>"><%= file.name %></a>
       </div>
     <% }) %>
   <% } %>
 </div>
+<dialog id="rename-modal">
+  <h2>Rename Current Folder</h2>
+  <form action="/home/folder/rename/<%= currentFolder.id %>" method="post" name="rename-form">
+    <p>Provide a name between 1 and 40 characters in length.</p>
+    <p>
+      <label for="foldername">Folder Name:</label>
+      <input type="text" name="foldername" id="foldername" required value="<%= currentFolder.name %>" minlength="1" maxlength="40" autofocus>
+    </p>
+    <button type="submit" id="rename-submit">Rename Folder</button>
+    <button type="button" id="rename-modal-close">Cancel</button>
+  </form>
+</dialog>
+<dialog id="create-modal">
+  <h2>Create Subfolder</h2>
+  <form action="/home/folder/create/<%= currentFolder.id %>" method="post" name="create-form">
+    <p>Provide a name between 1 and 40 characters in length.</p>
+    <p>
+      <label for="newfolder">Folder Name:</label>
+      <input type="text" name="newfolder" id="newfolder" required minlength="1" maxlength="40" autofocus>
+    </p>
+    <button type="submit" id="create-submit">Create Subfolder</button>
+    <button type="button" id="create-modal-close">Cancel</button>
+  </form>
+</dialog>
+<script src="/scripts/create-modal.js"></script>
+<script src="/scripts/rename-modal.js"></script>
+<script src="/scripts/folderContents.js"></script>

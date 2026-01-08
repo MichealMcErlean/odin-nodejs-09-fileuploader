@@ -17,6 +17,7 @@ exports.homePage = async (req, res) => {
     select: {
       id: true,
       name: true,
+      isHome: true
     }
   });
     
@@ -39,3 +40,124 @@ exports.homePage = async (req, res) => {
     currentFolder
   })
 }
+
+const validateName = [
+  body('foldername').exists().trim()
+    .isLength({min: 1, max: 40}).withMessage('Folder name must be between 1 and 40 characters in length.')
+]
+
+exports.renameFolder = [
+  validateName, 
+  async (req, res, next) => {
+    const {foldername} = matchedData(req);
+    console.log('foldername:', foldername);
+    const currentFolder = parseInt(req.params.id, 10);
+    try {
+      await prisma.folder.update({
+        where: {
+          id: currentFolder,
+        },
+        data: {
+          name: foldername,
+        },
+      });
+      res.redirect(`/home/folder/${currentFolder}`)
+    } catch (err) {
+      return next(err);
+    }
+  }
+]
+
+exports.deleteFolder = async (req, res, next) => {
+  const currentFolder = parseInt(req.params.id, 10);
+  const folder = await prisma.folder.findUnique({where:{id: currentFolder}});
+
+  if (folder.isHome === true) {
+    req.flash('error', 'Your home directory cannot be deleted.');
+    return res.redirect(`/home/folder/${currentFolder}`);
+  }
+
+  try {
+    await prisma.folder.delete({
+      where: {
+        id: currentFolder,
+      },
+    });
+    res.redirect('/home');
+  } catch(err) {
+    return next(err);
+  }
+}
+
+exports.showFolder = async (req, res, next) => {
+  const folderId = parseInt(req.params.id, 10);
+
+  const currentFolder = await prisma.folder.findFirst({
+    where: {
+      id: folderId,
+    },
+    select: {
+      id: true,
+      name: true,
+      isHome: true,
+    }
+  })
+
+  console.log('CurrentFolder:', currentFolder)
+  
+
+  const {folderPath, directoryTree, subfolders, currentFiles} = await homeHelper.commonSearches(currentFolder, res.locals.currentAccount);
+
+  res.render('folder', {
+    title: currentFolder.name,
+    folderPath,
+    directoryTree,
+    subfolders,
+    currentFiles,
+    currentFolder,
+    error: req.flash('error')
+  })
+}
+
+const validateNewFolder = [
+  body('newfolder').exists().trim()
+    .isLength({min: 1, max: 40}).withMessage('Folder name must be between 1 and 40 characters in length.')
+]
+
+exports.createFolder = [
+  validateNewFolder,
+  async (req, res, next) => {
+    const folderId = parseInt(req.params.id, 10);
+
+    const currentFolder = await prisma.folder.findFirst({
+      where: {
+        id: folderId,
+      },
+      select: {
+        id: true,
+        name: true,
+        isHome: true,
+      }
+    })
+
+    const {folderPath, directoryTree, subfolders, currentFiles} = await homeHelper.commonSearches(currentFolder, res.locals.currentAccount);
+
+    const errors = validationResult(req).errors;
+    if (errors.length > 0) {
+      req.flash('error', 'Folder name must be between 1 and 40 characters in length.');
+
+      res.redirect(`/home/folder/${currentFolder.id}`)
+    }
+    const {newfolder} = matchedData(req);
+
+    await prisma.folder.create({
+      data: {
+        name: newfolder,
+        parentId: currentFolder.id,
+        isHome: false,
+        accountId: res.locals.currentAccount.id,
+      }
+    })
+    res.redirect(`/home/folder/${currentFolder.id}`)    
+  }
+]
