@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body class="app-shell">
+  <%- include('./partials/home-header.ejs') %>
+  <%- include('./partials/home-nav.ejs') %>
+  <article>
+    <div class="file-details">
+      <h1><%= file.name %></h1>
+      <p>Size: <%= file.size / 1024 %> kB</p>
+      <p>Created: <%= format(
+        file.uploaddate, "HH:mm, dd/MM/yyyy"
+      )%></p>
+      <p><a href="<%= file.url %>">Download File</a></p>
+    </div>
+  </article>
+  <%- include('./partials/footer.ejs') %>
+</body>
+
+</html>

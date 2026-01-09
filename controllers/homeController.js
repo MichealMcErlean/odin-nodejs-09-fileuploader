@@ -8,6 +8,7 @@ const {
 const homeHelper = require('../helpers/home.js');
 const supabase = require('../db/supabase.js');
 const handleUpload = require('../middleware/handleUpload.js');
+const {format} = require('date-fns');
 
 exports.homePage = async (req, res) => {
   // Home only: get current folder from accountId and isHome
@@ -212,3 +213,44 @@ exports.uploadFile = [
     res.redirect(`/home/folder/${folderId}`)
   }
 ]
+
+exports.showFile = async (req, res, next) => {
+  const fileId = parseInt(req.params.id);
+
+  const file = await prisma.file.findUnique({
+    where: {
+      id: fileId,
+    },
+    select: {
+      name: true,
+      size: true,
+      uploaddate: true,
+      folderId: true,
+      accountId: true,
+      url: true
+    }
+  });
+
+  const folder = file.folderId;
+  const currentFolder = await prisma.folder.findUnique({
+    where: {
+      id: folder,
+    },
+    select: {
+      id: true,
+      name: true,
+      isHome: true,
+    }
+  });
+
+  const {folderPath, directoryTree, subfolders, currentFiles} = await homeHelper.commonSearches(currentFolder, res.locals.currentAccount);
+
+  res.render('file', {
+    title: file.name,
+    file,
+    folderPath,
+    directoryTree,
+    currentFolder,
+    format: format
+  })
+}
