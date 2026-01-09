@@ -6,6 +6,8 @@ const {
   matchedData
 } = require('express-validator');
 const homeHelper = require('../helpers/home.js');
+const supabase = require('../db/supabase.js');
+const handleUpload = require('../middleware/handleUpload.js');
 
 exports.homePage = async (req, res) => {
   // Home only: get current folder from accountId and isHome
@@ -159,5 +161,54 @@ exports.createFolder = [
       }
     })
     res.redirect(`/home/folder/${currentFolder.id}`)    
+  }
+]
+
+exports.uploadFile = [
+  handleUpload,
+  async (req, res, next) => {
+    const folderId = parseInt(req.params.id);
+
+    if (!req.file) {
+      req.flash('error', 'No file selected.');
+      return res.redirect(`/home/folder/${folderId}`);
+    }
+
+    try {
+      const fileName = `${Date.now()}-${req.file.originalname}`;
+      const filePath = `${res.locals.currentAccount.id}/${folderId}/${fileName}`;
+
+      // Upload to Supabase Storage
+      const {data, error: uploadError} = await supabase.storage
+        .from('mduploads')
+        .upload(filePath, req.file.buffer, {
+          contentType: req.file.mimetype,
+          upsert: false
+        });
+      
+      if (uploadError) throw uploadError;
+      
+      // Get public URL
+      const {data: {publicUrl}} = supabase.storage
+        .from('mduploads')
+        .getPublicUrl(filePath);
+
+      await prisma.file.create({
+        data: {
+          name: req.file.originalname,
+          url: publicUrl,
+          size: req.file.size.toString(),
+          folderId: folderId,
+          accountId: res.locals.currentAccount.id
+        }
+      });
+
+      req.flash('success', 'File uploaded to cloud successfully!')
+    } catch (err) {
+      console.error(err);
+      req.flash('error', 'Upload failed: ' + err.message);
+    }
+
+    res.redirect(`/home/folder/${folderId}`)
   }
 ]

@@ -44,6 +44,7 @@ model File {
   account    Account  @relation(fields: [accountId], references: [id])
   folderId   Int
   folder     Folder   @relation(fields: [folderId], references: [id])
+  url        String   @unique
 }
 
 model Session {

@@ -1,7 +1,8 @@
 const Router = require('express');
-const homeController = require('../controllers/homeController');
+const homeController = require('../controllers/homeController.js');
 const homeRouter = Router();
 
+homeRouter.post('/folder/upload/:id', homeController.uploadFile)
 homeRouter.post('/folder/create/:id', homeController.createFolder);
 homeRouter.post('/folder/rename/:id', homeController.renameFolder);
 homeRouter.post('/folder/delete/:id', homeController.deleteFolder)
