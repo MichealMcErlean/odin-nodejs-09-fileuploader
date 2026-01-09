@@ -3562,6 +3562,7 @@ export namespace Prisma {
     uploaddate: Date | null
     accountId: number | null
     folderId: number | null
+    url: string | null
   }
 
   export type FileMaxAggregateOutputType = {
@@ -3571,6 +3572,7 @@ export namespace Prisma {
     uploaddate: Date | null
     accountId: number | null
     folderId: number | null
+    url: string | null
   }
 
   export type FileCountAggregateOutputType = {
@@ -3580,6 +3582,7 @@ export namespace Prisma {
     uploaddate: number
     accountId: number
     folderId: number
+    url: number
     _all: number
   }
 
@@ -3603,6 +3606,7 @@ export namespace Prisma {
     uploaddate?: true
     accountId?: true
     folderId?: true
+    url?: true
   }
 
   export type FileMaxAggregateInputType = {
@@ -3612,6 +3616,7 @@ export namespace Prisma {
     uploaddate?: true
     accountId?: true
     folderId?: true
+    url?: true
   }
 
   export type FileCountAggregateInputType = {
@@ -3621,6 +3626,7 @@ export namespace Prisma {
     uploaddate?: true
     accountId?: true
     folderId?: true
+    url?: true
     _all?: true
   }
 
@@ -3717,6 +3723,7 @@ export namespace Prisma {
     uploaddate: Date
     accountId: number
     folderId: number
+    url: string
     _count: FileCountAggregateOutputType | null
     _avg: FileAvgAggregateOutputType | null
     _sum: FileSumAggregateOutputType | null
@@ -3745,6 +3752,7 @@ export namespace Prisma {
     uploaddate?: boolean
     accountId?: boolean
     folderId?: boolean
+    url?: boolean
     account?: boolean | AccountDefaultArgs<ExtArgs>
     folder?: boolean | FolderDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["file"]>
@@ -3756,6 +3764,7 @@ export namespace Prisma {
     uploaddate?: boolean
     accountId?: boolean
     folderId?: boolean
+    url?: boolean
     account?: boolean | AccountDefaultArgs<ExtArgs>
     folder?: boolean | FolderDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["file"]>
@@ -3767,6 +3776,7 @@ export namespace Prisma {
     uploaddate?: boolean
     accountId?: boolean
     folderId?: boolean
+    url?: boolean
     account?: boolean | AccountDefaultArgs<ExtArgs>
     folder?: boolean | FolderDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["file"]>
@@ -3778,9 +3788,10 @@ export namespace Prisma {
     uploaddate?: boolean
     accountId?: boolean
     folderId?: boolean
+    url?: boolean
   }
 
-  export type FileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "size" | "uploaddate" | "accountId" | "folderId", ExtArgs["result"]["file"]>
+  export type FileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "size" | "uploaddate" | "accountId" | "folderId" | "url", ExtArgs["result"]["file"]>
   export type FileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     account?: boolean | AccountDefaultArgs<ExtArgs>
     folder?: boolean | FolderDefaultArgs<ExtArgs>
@@ -3807,6 +3818,7 @@ export namespace Prisma {
       uploaddate: Date
       accountId: number
       folderId: number
+      url: string
     }, ExtArgs["result"]["file"]>
     composites: {}
   }
@@ -4238,6 +4250,7 @@ export namespace Prisma {
     readonly uploaddate: FieldRef<"File", 'DateTime'>
     readonly accountId: FieldRef<"File", 'Int'>
     readonly folderId: FieldRef<"File", 'Int'>
+    readonly url: FieldRef<"File", 'String'>
   }
     
 
@@ -5676,7 +5689,8 @@ export namespace Prisma {
     size: 'size',
     uploaddate: 'uploaddate',
     accountId: 'accountId',
-    folderId: 'folderId'
+    folderId: 'folderId',
+    url: 'url'
   };
 
   export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
@@ -5923,6 +5937,7 @@ export namespace Prisma {
     uploaddate?: DateTimeFilter<"File"> | Date | string
     accountId?: IntFilter<"File"> | number
     folderId?: IntFilter<"File"> | number
+    url?: StringFilter<"File"> | string
     account?: XOR<AccountScalarRelationFilter, AccountWhereInput>
     folder?: XOR<FolderScalarRelationFilter, FolderWhereInput>
   }
@@ -5934,12 +5949,14 @@ export namespace Prisma {
     uploaddate?: SortOrder
     accountId?: SortOrder
     folderId?: SortOrder
+    url?: SortOrder
     account?: AccountOrderByWithRelationInput
     folder?: FolderOrderByWithRelationInput
   }
 
   export type FileWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    url?: string
     AND?: FileWhereInput | FileWhereInput[]
     OR?: FileWhereInput[]
     NOT?: FileWhereInput | FileWhereInput[]
@@ -5950,7 +5967,7 @@ export namespace Prisma {
     folderId?: IntFilter<"File"> | number
     account?: XOR<AccountScalarRelationFilter, AccountWhereInput>
     folder?: XOR<FolderScalarRelationFilter, FolderWhereInput>
-  }, "id">
+  }, "id" | "url">
 
   export type FileOrderByWithAggregationInput = {
     id?: SortOrder
@@ -5959,6 +5976,7 @@ export namespace Prisma {
     uploaddate?: SortOrder
     accountId?: SortOrder
     folderId?: SortOrder
+    url?: SortOrder
     _count?: FileCountOrderByAggregateInput
     _avg?: FileAvgOrderByAggregateInput
     _max?: FileMaxOrderByAggregateInput
@@ -5976,6 +5994,7 @@ export namespace Prisma {
     uploaddate?: DateTimeWithAggregatesFilter<"File"> | Date | string
     accountId?: IntWithAggregatesFilter<"File"> | number
     folderId?: IntWithAggregatesFilter<"File"> | number
+    url?: StringWithAggregatesFilter<"File"> | string
   }
 
   export type SessionWhereInput = {
@@ -6149,6 +6168,7 @@ export namespace Prisma {
     name: string
     size: string
     uploaddate?: Date | string
+    url: string
     account: AccountCreateNestedOneWithoutFilesInput
     folder: FolderCreateNestedOneWithoutFilesInput
   }
@@ -6160,12 +6180,14 @@ export namespace Prisma {
     uploaddate?: Date | string
     accountId: number
     folderId: number
+    url: string
   }
 
   export type FileUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     size?: StringFieldUpdateOperationsInput | string
     uploaddate?: DateTimeFieldUpdateOperationsInput | Date | string
+    url?: StringFieldUpdateOperationsInput | string
     account?: AccountUpdateOneRequiredWithoutFilesNestedInput
     folder?: FolderUpdateOneRequiredWithoutFilesNestedInput
   }
@@ -6177,6 +6199,7 @@ export namespace Prisma {
     uploaddate?: DateTimeFieldUpdateOperationsInput | Date | string
     accountId?: IntFieldUpdateOperationsInput | number
     folderId?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
   }
 
   export type FileCreateManyInput = {
@@ -6186,12 +6209,14 @@ export namespace Prisma {
     uploaddate?: Date | string
     accountId: number
     folderId: number
+    url: string
   }
 
   export type FileUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     size?: StringFieldUpdateOperationsInput | string
     uploaddate?: DateTimeFieldUpdateOperationsInput | Date | string
+    url?: StringFieldUpdateOperationsInput | string
   }
 
   export type FileUncheckedUpdateManyInput = {
@@ -6201,6 +6226,7 @@ export namespace Prisma {
     uploaddate?: DateTimeFieldUpdateOperationsInput | Date | string
     accountId?: IntFieldUpdateOperationsInput | number
     folderId?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
   }
 
   export type SessionCreateInput = {
@@ -6478,6 +6504,7 @@ export namespace Prisma {
     uploaddate?: SortOrder
     accountId?: SortOrder
     folderId?: SortOrder
+    url?: SortOrder
   }
 
   export type FileAvgOrderByAggregateInput = {
@@ -6493,6 +6520,7 @@ export namespace Prisma {
     uploaddate?: SortOrder
     accountId?: SortOrder
     folderId?: SortOrder
+    url?: SortOrder
   }
 
   export type FileMinOrderByAggregateInput = {
@@ -6502,6 +6530,7 @@ export namespace Prisma {
     uploaddate?: SortOrder
     accountId?: SortOrder
     folderId?: SortOrder
+    url?: SortOrder
   }
 
   export type FileSumOrderByAggregateInput = {
@@ -6975,6 +7004,7 @@ export namespace Prisma {
     name: string
     size: string
     uploaddate?: Date | string
+    url: string
     folder: FolderCreateNestedOneWithoutFilesInput
   }
 
@@ -6984,6 +7014,7 @@ export namespace Prisma {
     size: string
     uploaddate?: Date | string
     folderId: number
+    url: string
   }
 
   export type FileCreateOrConnectWithoutAccountInput = {
@@ -7049,6 +7080,7 @@ export namespace Prisma {
     uploaddate?: DateTimeFilter<"File"> | Date | string
     accountId?: IntFilter<"File"> | number
     folderId?: IntFilter<"File"> | number
+    url?: StringFilter<"File"> | string
   }
 
   export type AccountCreateWithoutFoldersInput = {
@@ -7126,6 +7158,7 @@ export namespace Prisma {
     name: string
     size: string
     uploaddate?: Date | string
+    url: string
     account: AccountCreateNestedOneWithoutFilesInput
   }
 
@@ -7135,6 +7168,7 @@ export namespace Prisma {
     size: string
     uploaddate?: Date | string
     accountId: number
+    url: string
   }
 
   export type FileCreateOrConnectWithoutFolderInput = {
@@ -7348,6 +7382,7 @@ export namespace Prisma {
     size: string
     uploaddate?: Date | string
     folderId: number
+    url: string
   }
 
   export type FolderUpdateWithoutAccountInput = {
@@ -7378,6 +7413,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     size?: StringFieldUpdateOperationsInput | string
     uploaddate?: DateTimeFieldUpdateOperationsInput | Date | string
+    url?: StringFieldUpdateOperationsInput | string
     folder?: FolderUpdateOneRequiredWithoutFilesNestedInput
   }
 
@@ -7387,6 +7423,7 @@ export namespace Prisma {
     size?: StringFieldUpdateOperationsInput | string
     uploaddate?: DateTimeFieldUpdateOperationsInput | Date | string
     folderId?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
   }
 
   export type FileUncheckedUpdateManyWithoutAccountInput = {
@@ -7395,6 +7432,7 @@ export namespace Prisma {
     size?: StringFieldUpdateOperationsInput | string
     uploaddate?: DateTimeFieldUpdateOperationsInput | Date | string
     folderId?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
   }
 
   export type FolderCreateManyParentInput = {
@@ -7410,6 +7448,7 @@ export namespace Prisma {
     size: string
     uploaddate?: Date | string
     accountId: number
+    url: string
   }
 
   export type FolderUpdateWithoutParentInput = {
@@ -7440,6 +7479,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     size?: StringFieldUpdateOperationsInput | string
     uploaddate?: DateTimeFieldUpdateOperationsInput | Date | string
+    url?: StringFieldUpdateOperationsInput | string
     account?: AccountUpdateOneRequiredWithoutFilesNestedInput
   }
 
@@ -7449,6 +7489,7 @@ export namespace Prisma {
     size?: StringFieldUpdateOperationsInput | string
     uploaddate?: DateTimeFieldUpdateOperationsInput | Date | string
     accountId?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
   }
 
   export type FileUncheckedUpdateManyWithoutFolderInput = {
@@ -7457,6 +7498,7 @@ export namespace Prisma {
     size?: StringFieldUpdateOperationsInput | string
     uploaddate?: DateTimeFieldUpdateOperationsInput | Date | string
     accountId?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
   }
 
 

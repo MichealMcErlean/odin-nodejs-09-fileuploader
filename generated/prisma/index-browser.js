@@ -142,7 +142,8 @@ exports.Prisma.FileScalarFieldEnum = {
   size: 'size',
   uploaddate: 'uploaddate',
   accountId: 'accountId',
-  folderId: 'folderId'
+  folderId: 'folderId',
+  url: 'url'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {
